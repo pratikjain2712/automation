@@ -2,7 +2,7 @@ const fs = require('fs');
 const { test, expect } = require('@playwright/test');
 require('dotenv').config();
 // const todaysDate = new Date().toLocaleDateString('en-GB').split('/').join('-');
-const todaysDate = '30-11-2023';
+const todaysDate = '26-01-2024';
 const today = new Date();
 // Create a shared flag to track if the file has been cleared
 let datafileCleared = false;
@@ -44,21 +44,21 @@ test.describe('Your test suite description', () => {
             const scheduleStartDate = await columns.nth(6).innerText();
             if (scheduleStartDate === searchedDate) {
                 // Assuming the `copyright` column is the sixth column (0-indexed)
-                // const status = await columns.nth(5).innerText(); // Assuming the `copyright` column is the sixth column (0-indexed)
-                const journalId = await columns.nth(1).innerText();
-                const articleId = await columns.nth(3).innerText();
-                matchingArticleIds.push({
-                    articleId,
-                    journalId,
-                });
-                // if (status === 'Yet-to-Start') {
-                //     const journalId = await columns.nth(1).innerText();
-                //     const articleId = await columns.nth(3).innerText();
-                //     matchingArticleIds.push({
-                //         articleId,
-                //         journalId,
-                //     });
-                // }
+                const status = await columns.nth(5).innerText(); // Assuming the `copyright` column is the sixth column (0-indexed)
+                // const journalId = await columns.nth(1).innerText();
+                // const articleId = await columns.nth(3).innerText();
+                // matchingArticleIds.push({
+                //     articleId,
+                //     journalId,
+                // });
+                if (status === 'Yet-to-Start') {
+                    const journalId = await columns.nth(1).innerText();
+                    const articleId = await columns.nth(3).innerText();
+                    matchingArticleIds.push({
+                        articleId,
+                        journalId,
+                    });
+                }
             }
         }
         if (matchingArticleIds.length > 5) {
@@ -80,7 +80,7 @@ test.describe('Your test suite description', () => {
             }
 
             const totalJournals = matchingArticleIds.length;
-            const noorAllocation = Math.min(Math.floor(totalJournals * 0.2), noorJournals.length);
+            const noorAllocation = Math.min(Math.floor(totalJournals * 0.1), noorJournals.length);
             noorAssignment = noorJournals.slice(0, noorAllocation).map(journal => journal.articleId);
             const remainingSubrataJournals = subrataJournals.concat(noorJournals.slice(noorAllocation));
             subrataAssignment = remainingSubrataJournals.map(journal => journal.articleId);

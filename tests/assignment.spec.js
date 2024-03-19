@@ -52,7 +52,7 @@ const performArticleSearchAndDownload = async (articleID, author) => {
     }
     showArticleId && fs.appendFileSync(`${author}.txt`, `\n\n\n${articleID}\n${outputHTML}`);
     await page.getByRole('button', { name: '×' }).click();
-    const downloadPromise = page.waitForEvent('download', { timeout: 15000 });
+    const   Promise = page.waitForEvent('download', { timeout: 15000 });
     await page.getByRole('link', { name: ' Download' }).click();
     try {
         const download = await downloadPromise;
