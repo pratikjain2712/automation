@@ -2,11 +2,13 @@
 const fs = require('fs');
 const { test, expect } = require('@playwright/test');
 import articleIds from '../batchToUpload.json';
+import { getWordCount } from '../wordCount';
 const path = require('path');
 const today = new Date();
 const formattedDate = today.toISOString().split('T')[0];
 test.describe.configure({ mode: 'serial' });
 let page;
+
 
 const performArticleSearchAndUpload = async (articleID) => {
     const tasksTable = await page.waitForSelector('#dashboardTaskTable tbody');
@@ -29,6 +31,9 @@ const performArticleSearchAndUpload = async (articleID) => {
         await page.screenshot({ path: `./articlesUploaded/${articleID}.png` });
         await page.getByRole('button', { name: 'Submit Task' }).click();
         await page.waitForTimeout(2000); // Adjust the timeout as needed
+        getWordCount(filePath)
+            .then(wordCount => console.log(`${articleID} - ${wordCount}`))
+            .catch(err => console.error(err));
     }
     else {
         console.log('No matching entry found for the article ID:', articleID);

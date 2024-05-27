@@ -5,3 +5,6 @@ node_modules/
 /downloadedTE
 /articlesUploaded
 /batchUploader
+*.env
+*.txt
+*.zip  

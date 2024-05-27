@@ -2,7 +2,7 @@ const fs = require('fs');
 const { test, expect } = require('@playwright/test');
 require('dotenv').config();
 // const todaysDate = new Date().toLocaleDateString('en-GB').split('/').join('-');
-const todaysDate = '26-01-2024';
+const todaysDate = '27-05-2024';
 const today = new Date();
 // Create a shared flag to track if the file has been cleared
 let datafileCleared = false;
@@ -61,44 +61,44 @@ test.describe('Your test suite description', () => {
                 }
             }
         }
-        if (matchingArticleIds.length > 5) {
-            const allowedJournalsForNoor = [
-                "ACA", "IJPM", "IDOJ", "MJDRDYPU", "IJD", "ABR",
-                "CRST", "INDIANJPSYCHIATRY", "JCRT", "JBPS",
-                "JIAOMR", "NJCP", "JEHP", "JFMPC", "IJEM",
-                "JOMFP", "JPBS"
-            ];
-            const noorJournals = [];
-            const subrataJournals = [];
+        // if (matchingArticleIds.length > 5) {
+        //     const allowedJournalsForNoor = [
+        //         "ACA", "IJPM", "IDOJ", "MJDRDYPU", "IJD", "ABR",
+        //         "CRST", "INDIANJPSYCHIATRY", "JCRT", "JBPS",
+        //         "JIAOMR", "NJCP", "JEHP", "JFMPC", "IJEM",
+        //         "JOMFP", "JPBS"
+        //     ];
+        //     const noorJournals = [];
+        //     const subrataJournals = [];
 
-            for (const journal of matchingArticleIds) {
-                if (allowedJournalsForNoor.includes(journal.journalId.toUpperCase())) {
-                    noorJournals.push(journal);
-                } else {
-                    subrataJournals.push(journal);
-                }
-            }
+        //     for (const journal of matchingArticleIds) {
+        //         if (allowedJournalsForNoor.includes(journal.journalId.toUpperCase())) {
+        //             noorJournals.push(journal);
+        //         } else {
+        //             subrataJournals.push(journal);
+        //         }
+        //     }
 
-            const totalJournals = matchingArticleIds.length;
-            const noorAllocation = Math.min(Math.floor(totalJournals * 0.1), noorJournals.length);
-            noorAssignment = noorJournals.slice(0, noorAllocation).map(journal => journal.articleId);
-            const remainingSubrataJournals = subrataJournals.concat(noorJournals.slice(noorAllocation));
-            subrataAssignment = remainingSubrataJournals.map(journal => journal.articleId);
-        }
-        else {
-            // If the number of matching articles is 5 or fewer, assign all to Subrata
-            subrataAssignment = matchingArticleIds.map(journal => journal.articleId);
-            noorAssignment = []; // Set noorAssignment to an empty array
-        }
+        //     const totalJournals = matchingArticleIds.length;
+        //     const noorAllocation = Math.min(Math.floor(totalJournals * 0.1), noorJournals.length);
+        //     noorAssignment = noorJournals.slice(0, noorAllocation).map(journal => journal.articleId);
+        //     const remainingSubrataJournals = subrataJournals.concat(noorJournals.slice(noorAllocation));
+        //     subrataAssignment = remainingSubrataJournals.map(journal => journal.articleId);
+        // }
+        // else {
+        // If the number of matching articles is 5 or fewer, assign all to Subrata
+        subrataAssignment = matchingArticleIds.map(journal => journal.articleId);
+        // noorAssignment = []; // Set noorAssignment to an empty array
+        // }
         console.log('Subrata Journals:', subrataAssignment, subrataAssignment.length);
-        console.log('Noor Journals:', noorAssignment, noorAssignment.length);
+        // console.log('Noor Journals:', noorAssignment, noorAssignment.length);
 
     });
     test.describe('Fetch Articles', () => {
         test('Fetch articles and write to a json file', async () => {
             const data = {
                 subrataAssignment,
-                noorAssignment,
+                // noorAssignment,
             };
             fs.writeFileSync('data.json', JSON.stringify(data, null, 2));
             console.log('Data has been written to data.json');

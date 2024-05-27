@@ -1,14 +1,15 @@
 const fs = require('fs');
 const { test, expect } = require('@playwright/test');
 require('dotenv').config();
+import data from '../data.json';
 
-const articleIDs = process.env.ARTICLE_IDS && process.env.ARTICLE_IDS.split(',');
-const editorName = process.env.EDITOR_NAME;
+const articleIDs = data.subrataAssignment;
+const editorName = 'Subrata';
 const today = new Date();
 const formattedDate = today.toISOString().split('T')[0];
 // Create a shared flag to track if the file has been cleared
 let SfileCleared = false;
-let NfileCleared = false;
+// let NfileCleared = false;
 // test.describe.configure({ mode: 'serial' });
 test.describe('Your test suite description', () => {
 

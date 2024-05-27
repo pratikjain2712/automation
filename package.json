@@ -8,13 +8,20 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.39.0",
+    "@playwright/test": "^1.42.1",
     "@types/node": "^20.8.9"
   },
   "dependencies": {
+    "adm-zip": "^0.5.12",
     "cheerio": "^1.0.0-rc.12",
+    "docx": "^8.5.0",
     "dotenv": "^16.3.1",
     "googleapis": "^128.0.0",
-    "nodemailer": "^6.9.7"
+    "jsonwebtoken": "^9.0.2",
+    "mammoth": "^1.7.2",
+    "nodemailer": "^6.9.7",
+    "officegen": "^0.6.5",
+    "playwright": "^1.42.1",
+    "textract": "^2.5.0"
   }
 }
